@@ -1,0 +1,129 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz App</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: rgb(176, 255, 244);
+        }
+
+        .hi {
+            position: relative;
+            min-height: 350px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hi::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image: url(assest/brainr.png);
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: contain;
+            opacity: 0.35;
+            pointer-events: none; /* IMPORTANT */
+        }
+
+        .hi h1 {
+            position: relative;
+            z-index: 2;
+            font-size: 48px;
+        }
+
+        .home-box {
+            max-width: 400px;
+            margin: -60px auto 0;
+            padding: 30px;
+            border-radius: 20px;
+            background: white;
+            box-shadow: 0 0 20px rgba(0,0,0,0.15);
+            text-align: center;
+            position: relative;
+            z-index: 5; /* IMPORTANT */
+        }
+
+        /* Role selection */
+        .role-select {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .role {
+            flex: 1;
+            padding: 10px;
+            border: 2px solid #000;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .role.active {
+            background: #0d6efd;
+            color: white;
+            border-color: #0d6efd;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container-fluid">
+
+    <div class="hi">
+        <h1>Quiz App</h1>
+    </div>
+
+    <div class="home-box">
+
+        <!-- Public / Admin -->
+        <div class="role-select">
+            <div class="role active" onclick="selectRole(this,'public')">Public</div>
+            <div class="role" onclick="selectRole(this,'admin')">Admin</div>
+        </div>
+
+        <!-- Buttons -->
+        <button class="btn btn-outline-primary w-100 mb-3" onclick="goLogin()">Login</button>
+        <button class="btn btn-outline-primary w-100" onclick="goSignup()">Sign Up</button>
+
+    </div>
+
+</div>
+
+<script>
+let selectedRole = "public"; // default
+
+function selectRole(element, role){
+    selectedRole = role;
+    document.querySelectorAll('.role').forEach(r => r.classList.remove('active'));
+    element.classList.add('active');
+}
+
+function goLogin(){
+    if(selectedRole === "admin"){
+        window.location.href = "admin-login.html";
+    } else {
+        window.location.href = "login.html";
+    }
+}
+
+function goSignup(){
+    if(selectedRole === "admin"){
+        alert("Admin cannot sign up.");
+        return;
+    }
+    window.location.href = "signup.html";
+}
+</script>
+
+</body>
+</html>

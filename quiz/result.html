@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Quiz Result</title>
+
+    <style>
+        body {
+            background-color: rgb(176, 255, 244);
+            font-family: Arial, sans-serif;
+        }
+
+        .result-box {
+            max-width: 420px;
+            margin: 120px auto;
+            padding: 25px;
+            text-align: center;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.2);
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 18px;
+            margin: 8px 0;
+        }
+
+        h2 {
+            margin-top: 15px;
+        }
+
+        button {
+            padding: 10px 25px;
+            margin: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 6px;
+            background: #000;
+            color: white;
+        }
+
+        button:hover {
+            background: #333;
+        }
+    </style>
+</head>
+<body>
+
+<div class="result-box">
+    <h1>Quiz Result</h1>
+
+    <p>Total Questions: <b><span id="totalQ"></span></b></p>
+    <p>Correct Answers: <b><span id="correctQ"></span></b></p>
+    <p>Wrong Answers: <b><span id="wrongQ"></span></b></p>
+
+    <h2 id="scoreText"></h2>
+    <h3 id="resultStatus"></h3>
+
+    <button onclick="goCategory()">Back to Category</button>
+    <button onclick="goHome()">Home</button>
+</div>
+
+<script>
+    // Fetch data from localStorage
+    let total = localStorage.getItem("totalQuestions") || 0;
+    let correct = localStorage.getItem("correctAnswers") || 0;
+    let wrong = total - correct;
+
+    document.getElementById("totalQ").innerText = total;
+    document.getElementById("correctQ").innerText = correct;
+    document.getElementById("wrongQ").innerText = wrong;
+
+    let percentage = total > 0 ? Math.round((correct / total) * 100) : 0;
+    document.getElementById("scoreText").innerText = "Score: " + percentage + "%";
+
+    let status = document.getElementById("resultStatus");
+    if (percentage >= 40) {
+        status.innerText = "🎉 PASS";
+        status.style.color = "green";
+    } else {
+        status.innerText = "❌ FAIL";
+        status.style.color = "red";
+    }
+
+    function goCategory() {
+        window.location.href = "category.html";
+    }
+
+    function goHome() {
+        window.location.href = "index.html";
+    }
+</script>
+
+</body>
+</html>
